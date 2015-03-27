@@ -16,13 +16,12 @@ $.UsersSearch.prototype = {
       },
       success: function (response) {
         this.renderResults(response);
-        console.log(response);
       }.bind(this)
     });
   },
 
   renderResults: function(response) {
-    this.$ul.html("");
+    this.$ul.empty();
     for (var i = 0; i < response.length; i++) {
       var $li = $('<li>');
       var $a = $('<a href="/users/' + response[i].id + '">' + response[i].username + '</a>');
@@ -40,7 +39,3 @@ $.fn.usersSearch = function () {
     new $.UsersSearch(this);
   });
 };
-
-$(function () {
-  $("div.users-search").usersSearch();
-});

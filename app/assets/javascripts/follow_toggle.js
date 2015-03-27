@@ -57,7 +57,3 @@ $.fn.followToggle = function () {
     new $.FollowToggle(this);
   });
 };
-
-$(function () {
-  $("button.follow-toggle").followToggle();
-});

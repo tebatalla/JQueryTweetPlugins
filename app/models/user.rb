@@ -46,7 +46,9 @@ class User < ActiveRecord::Base
       .joins(:user)
       .joins("LEFT OUTER JOIN follows ON users.id = follows.followee_id")
       .where("tweets.user_id = :id OR follows.follower_id = :id", id: self.id)
+      .where("tweets.created_at < :max_created_at OR :max_created_at IS NULL", max_created_at: max_created_at)
       .order("tweets.created_at DESC")
+      .limit(limit)
       .uniq
 
     # TODO: How can we use limit/max_created_at here??

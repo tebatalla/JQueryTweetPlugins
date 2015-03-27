@@ -12,15 +12,10 @@
   </label>
   <br>
 
-  <label>
-    Mention
-    <select name="tweet[mentioned_user_ids][]">
-      <option></option>
-      <% User.all.each do |user| %>
-        <option value="<%= user.id %>"><%= user.username %></option>
-      <% end %>
-    </select>
-  </label>
+  <a href="javascript:void(0)" class="add-mentioned-user">Add mention</a>
+  <div class="mentioned-users">
+
+  </div>
   <br>
 
   <button type="submit">Submit</button>
@@ -30,4 +25,16 @@
   $(function () {
     $(".tweet-compose").tweetCompose();
   });
+</script>
+
+<script type="text/template" id="template">
+  <div>
+    <select name="tweet[mentioned_user_ids][]">
+      <option></option>
+      <% User.all.each do |user| %>
+        <option value="<%= user.id %>"><%= user.username %></option>
+      <% end %>
+    </select>
+    <a href="javascript:void(0)" class="remove-mentioned-user">Remove Mention</a>
+  </div>
 </script>

@@ -29,8 +29,7 @@ $.TweetCompose.prototype = {
 
   addMentionedUser: function(event) {
     var $template = $('#template');
-    var $div = $('.mentioned-users');
-    $div.append($template.html());
+    $('.mentioned-users').append($template.html());
   },
 
   charsRemaining: function(event) {
@@ -47,7 +46,7 @@ $.TweetCompose.prototype = {
     this.clearInput();
     this.$inputs.prop("disabled", false);
     var $li = $('<li>');
-    $li.append(JSON.stringify(response));
+    $li.append(JSON.stringify(response)); // USE TEMPLATE
     var id = this.$el.data('tweets-ul');
     $(id).prepend($li);
   }

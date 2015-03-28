@@ -2,6 +2,24 @@
 
 <b>Your Feed!</b>
 <div class="infinite-tweets">
+  <script type="text/template">
+
+    <%% tweets.forEach(function (tweet) { %>
+      <li>
+        <%%= tweet.content %>
+        <a href="/users/<%%= tweet.user_id %>"><%%= tweet.user.username %></a>
+        <strong><%%= $.timeago(tweet.created_at) %></strong>
+        <ul>
+        <%% tweet.mentions.forEach(function (mention) { %>
+          <li>
+            <a href="/users/<%%= mention.user_id %>"><%%= mention.user.username %></a>
+          </li>
+        <%% }); %>
+      </ul>
+      </li>
+    <%% }); %>
+  </script>
+
   <ul id="feed">
   </ul>
   <a href="javascript:void(0)" class="fetch-more">Fetch more tweets</a>

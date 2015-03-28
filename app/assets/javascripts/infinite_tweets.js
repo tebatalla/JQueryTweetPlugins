@@ -2,7 +2,7 @@ $.InfiniteTweets = function(el) {
   this.$el = $(el);
   this.$el.on('click', '.fetch-more', this.fetchTweets.bind(this));
   this.maxCreatedAt = null;
-  this.lessThanTwenty = false;
+  this.$tweetTemplate = this.$el.find('script');
 };
 
 $.InfiniteTweets.prototype = {
@@ -16,7 +16,7 @@ $.InfiniteTweets.prototype = {
       dataType: 'json',
       data: data,
       type: 'GET',
-      success: function(response) {
+      success: function (response) {
         this.insertTweets(response);
         this.maxCreatedAt = response[response.length - 1].created_at;
         if (response.length < 20) {
@@ -27,12 +27,10 @@ $.InfiniteTweets.prototype = {
   },
 
   insertTweets: function(response) {
-    for (var i = 0; i < response.length; i++) {
-      var body = JSON.stringify(response[i]);
-      var $li = $('<li>');
-      $li.html(body);
-      this.$el.find('#feed').append($li);
-    }
+    var tweets = response;
+    var compiledFn = _.template(this.$tweetTemplate.html());
+    var rendered = compiledFn({ tweets: tweets });
+    this.$el.find('#feed').append(rendered);
   }
 };
 
